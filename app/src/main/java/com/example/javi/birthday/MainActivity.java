@@ -1,19 +1,20 @@
 package com.example.javi.birthday;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ListView;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity{
 
     private Button button;
     private TextView textView;
-
+    private ListView lista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,27 +24,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // se crea la base de datos
         DataBaseManager manager = new DataBaseManager(this);
 
-        button = (Button)findViewById(R.id.button);
-        textView = (TextView)findViewById(R.id.textView);
+        lista = (ListView) findViewById(R.id.ListView);
 
-        button.setOnClickListener(this);
-
+        contactos();
     }
 
-
-    public void onClick(View v) {
-
-        switch (v.getId()) {
-            case R.id.button:
-
-            contactos();
-
-                break;
-
-            default:
-                break;
-        }
-    }
 
 
     public void contactos(){
@@ -51,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         DataBaseManager manager = new DataBaseManager(this);
 
-        String[] projeccion = new String[] { ContactsContract.Data._ID, ContactsContract.Data.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.TYPE };
+        String[] projeccion = new String[] { ContactsContract.Data._ID, ContactsContract.Data.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER };
 
         String selectionClause = ContactsContract.Data.MIMETYPE + "='" +
                 ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE + "' AND "
@@ -66,19 +51,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 null,
                 sortOrder);
 
-        textView.setText("");
 
+        List<Contacto> l = new ArrayList<Contacto>();
 
         while(c.moveToNext()){
+            // Contacto contacto = new Contacto(R.mipmap.h, Integer.parseInt(c.getString(0)), c.getString(1), c.getString(2), "Solo notificacion", "", "");
+            Contacto contacto = new Contacto(0, 0, "", "", "Solo notificacion", "", "");
 
-            textView.append("Identificador: " + c.getString(0) + " Nombre: " + c.getString(1) + " Número: " + c.getString(2)+  " Tipo: " + c.getString(3)+"\n");
-
-            // se guarda en la base de datos los registros
             manager.insertar(c.getInt(0),c.getString(1),c.getString(2));
-        }
+            l.add(contacto);
 
+        }
+        lista.setAdapter(new ContactoAdapter(this, l));
         c.close();
 
+    }
+
+
+    private void rellenaLista() {
+
+        List<Contacto> l = new ArrayList<Contacto>();
+        l.add(new Contacto(R.mipmap.h, 1, "pepe", "999999999", "Solo notificacion", "02/05/1993", ""));
+        l.add(new Contacto(R.mipmap.h, 2, "pepe", "999999999", "SMS", "", ""));
+        l.add(new Contacto(R.mipmap.h, 1, "pepe", "999999999", "Solo notificacion", "02/05/1993", ""));
+        l.add(new Contacto(R.mipmap.h, 2, "pepe", "999999999", "Solo notificacion", "02/05/1993", ""));
+        l.add(new Contacto(R.mipmap.h, 1, "pepe", "999999999", "Solo notificacion", "02/05/1993", ""));
+        l.add(new Contacto(R.mipmap.h, 2, "pepe", "999999999", "Solo notificacion", "02/05/1993", ""));
+        l.add(new Contacto(R.mipmap.h, 1, "pepe", "999999999", "Solo notificacion", "02/05/1993", ""));
+        l.add(new Contacto(R.mipmap.h, 2, "pepe", "999999999", "Solo notificacion", "02/05/1993", ""));
+        l.add(new Contacto(R.mipmap.h, 1, "pepe", "999999999", "Solo notificacion", "02/05/1993", ""));
+        l.add(new Contacto(R.mipmap.h, 2, "pepe", "999999999", "Solo notificacion", "02/05/1993", ""));
+        l.add(new Contacto(R.mipmap.h, 1, "pepe", "999999999", "Solo notificacion", "02/05/1993", ""));
+        l.add(new Contacto(R.mipmap.h, 2, "pepe", "999999999", "Solo notificacion", "02/05/1993", ""));
+        l.add(new Contacto(R.mipmap.h, 1, "pepe", "999999999", "Solo notificacion", "02/05/1993", ""));
+        l.add(new Contacto(R.mipmap.h, 2, "pepe", "999999999", "Solo notificacion", "02/05/1993", ""));
+
+
+        lista.setAdapter(new ContactoAdapter(this, l));
     }
 
 }

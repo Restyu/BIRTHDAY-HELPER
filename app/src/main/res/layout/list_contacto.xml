@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivItem"
+        android:layout_width="?android:attr/listPreferredItemHeight"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/ivItem"
+        android:layout_toEndOf="@+id/ivItem"
+        android:id="@+id/ivNombre"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivNombre"
+        android:layout_toRightOf="@+id/ivItem"
+        android:layout_toEndOf="@+id/ivItem"
+        android:id="@+id/ivTelefono"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_width="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivNotify"
+        android:layout_below="@+id/ivFecha"
+        android:layout_toRightOf="@+id/ivItem"
+        android:layout_toEndOf="@+id/ivItem"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivFecha"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/ivNombre"
+        android:layout_toRightOf="@+id/ivTelefono"
+        android:layout_toEndOf="@+id/ivTelefono"
+        android:layout_marginLeft="10dp"/>
+</RelativeLayout>
