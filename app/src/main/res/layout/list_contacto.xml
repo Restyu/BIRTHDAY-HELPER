@@ -49,4 +49,5 @@
         android:layout_toRightOf="@+id/ivTelefono"
         android:layout_toEndOf="@+id/ivTelefono"
         android:layout_marginLeft="10dp"/>
+
 </RelativeLayout>

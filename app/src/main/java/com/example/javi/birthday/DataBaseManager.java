@@ -20,6 +20,7 @@ public class DataBaseManager {
     public static final String MESSAGE = "mensaje";
     public static final String NOTIFY = "notificacion";
     public static final String DATE = "birthday";
+    public static final String PHOTO = "foto";
 
     // creacion de tabla contacto
     public static final String CREATE_TABLE = "create table " +TABLE_NAME+ " ("
@@ -28,7 +29,8 @@ public class DataBaseManager {
             + PHONE + " integer,"
             + NOTIFY + " text,"
             + MESSAGE + " text,"
-            + DATE + " text);";
+            + DATE + " text,"
+            + PHOTO + "text);";
 
     private DbHelper helper;
     private SQLiteDatabase db;
@@ -39,12 +41,17 @@ public class DataBaseManager {
          db = helper.getWritableDatabase();
     }
 
-    public void insertar(int id , String nombre , String numero){
+    public void insertar(Contacto c){
 
         ContentValues campos = new ContentValues();
-        campos.put(ID, id);
-        campos.put(NAME, nombre);
-        campos.put(PHONE, numero);
+        campos.put(ID, c.getId());
+        campos.put(NAME, c.getNombre());
+        campos.put(PHONE, c.getTelefono());
+        campos.put(NOTIFY, c.getTipoNotificacion());
+        campos.put(MESSAGE, c.getMensage());
+        campos.put(DATE, c.getFechaNacimiento());
+        campos.put(PHOTO, c.getImagen());
+
 
         db.insert(TABLE_NAME,null, campos);
     }
